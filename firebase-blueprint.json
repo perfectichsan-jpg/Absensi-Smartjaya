@@ -1,0 +1,244 @@
+{
+  "entities": {
+    "InternProfile": {
+      "title": "InternProfile",
+      "description": "Profil peserta magang dan pengaturan jadwal kerja di perusahaan.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "UID pengguna Firebase Auth pemilik profil."
+        },
+        "fullName": {
+          "type": "string",
+          "description": "Nama lengkap anak magang."
+        },
+        "email": {
+          "type": "string",
+          "description": "Alamat email akun Google anak magang."
+        },
+        "division": {
+          "type": "string",
+          "description": "Divisi atau departemen penempatan magang."
+        },
+        "university": {
+          "type": "string",
+          "description": "Asal universitas atau sekolah."
+        },
+        "mentorName": {
+          "type": "string",
+          "description": "Nama pembimbing lapangan atau mentor."
+        },
+        "companyName": {
+          "type": "string",
+          "description": "Nama perusahaan tempat magang."
+        },
+        "workModeDefault": {
+          "type": "string",
+          "enum": ["WFO", "WFH", "HYBRID"],
+          "description": "Mode kerja bawaan saat absensi."
+        },
+        "shiftStart": {
+          "type": "string",
+          "description": "Jam masuk kerja target dalam format HH:mm."
+        },
+        "shiftEnd": {
+          "type": "string",
+          "description": "Jam pulang kerja target dalam format HH:mm."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Waktu pembuatan profil (FieldValue.serverTimestamp())."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Waktu pembaruan profil terakhir (FieldValue.serverTimestamp())."
+        }
+      },
+      "required": [
+        "userId",
+        "fullName",
+        "email",
+        "division",
+        "university",
+        "mentorName",
+        "companyName",
+        "workModeDefault",
+        "shiftStart",
+        "shiftEnd",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "AttendanceLog": {
+      "title": "AttendanceLog",
+      "description": "Catatan absensi harian dan logbook aktivitas anak magang.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "UID anak magang pemilik absensi."
+        },
+        "internName": {
+          "type": "string",
+          "description": "Nama anak magang (denormalisasi untuk tampilan pembimbing)."
+        },
+        "division": {
+          "type": "string",
+          "description": "Divisi anak magang."
+        },
+        "dateKey": {
+          "type": "string",
+          "description": "Tanggal absensi dalam format YYYY-MM-DD."
+        },
+        "workMode": {
+          "type": "string",
+          "enum": ["WFO", "WFH", "HYBRID"],
+          "description": "Mode kerja hari tersebut."
+        },
+        "attendanceStatus": {
+          "type": "string",
+          "enum": ["ON_TIME", "LATE"],
+          "description": "Ketepatan waktu saat absen masuk."
+        },
+        "checkInTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Waktu absen masuk server (FieldValue.serverTimestamp())."
+        },
+        "checkOutTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Waktu absen pulang server (opsional saat baru masuk)."
+        },
+        "locationLabel": {
+          "type": "string",
+          "description": "Label lokasi atau koordinat saat check-in."
+        },
+        "dailyActivities": {
+          "type": "string",
+          "description": "Ringkasan logbook aktivitas harian."
+        },
+        "sessionState": {
+          "type": "string",
+          "enum": ["WORKING", "COMPLETED"],
+          "description": "Status sesi kerja harian."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Waktu pembuatan dokumen (FieldValue.serverTimestamp())."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Waktu pembaruan terakhir (FieldValue.serverTimestamp())."
+        }
+      },
+      "required": [
+        "userId",
+        "internName",
+        "division",
+        "dateKey",
+        "workMode",
+        "attendanceStatus",
+        "checkInTime",
+        "locationLabel",
+        "dailyActivities",
+        "sessionState",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "LeaveRequest": {
+      "title": "LeaveRequest",
+      "description": "Pengajuan izin, sakit, atau urusan kampus anak magang.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "UID anak magang pemohon."
+        },
+        "internName": {
+          "type": "string",
+          "description": "Nama anak magang pemohon."
+        },
+        "division": {
+          "type": "string",
+          "description": "Divisi anak magang."
+        },
+        "leaveType": {
+          "type": "string",
+          "enum": ["SAKIT", "IZIN_KAMPUS", "PRIBADI"],
+          "description": "Jenis pengajuan izin."
+        },
+        "startDate": {
+          "type": "string",
+          "description": "Tanggal mulai izin (YYYY-MM-DD)."
+        },
+        "endDate": {
+          "type": "string",
+          "description": "Tanggal selesai izin (YYYY-MM-DD)."
+        },
+        "reason": {
+          "type": "string",
+          "description": "Alasan pengajuan izin atau sakit."
+        },
+        "status": {
+          "type": "string",
+          "enum": ["PENDING", "APPROVED", "REJECTED"],
+          "description": "Status persetujuan pembimbing."
+        },
+        "reviewerNote": {
+          "type": "string",
+          "description": "Catatan dari pembimbing lapangan."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Waktu pengajuan (FieldValue.serverTimestamp())."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Waktu pembaruan terakhir (FieldValue.serverTimestamp())."
+        }
+      },
+      "required": [
+        "userId",
+        "internName",
+        "division",
+        "leaveType",
+        "startDate",
+        "endDate",
+        "reason",
+        "status",
+        "reviewerNote",
+        "createdAt",
+        "updatedAt"
+      ]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": {
+        "$ref": "#/entities/InternProfile"
+      },
+      "description": "Profil individu anak magang yang terisolasi per pengguna."
+    },
+    "/attendance_logs/{logId}": {
+      "schema": {
+        "$ref": "#/entities/AttendanceLog"
+      },
+      "description": "Catatan kehadiran harian dan logbook pekerjaan anak magang."
+    },
+    "/leave_requests/{requestId}": {
+      "schema": {
+        "$ref": "#/entities/LeaveRequest"
+      },
+      "description": "Daftar pengajuan izin, sakit, dan bimbingan kampus anak magang."
+    }
+  }
+}

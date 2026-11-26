@@ -1,0 +1,6 @@
+{
+  "name": "Absensi SmartJaya",
+  "description": "Aplikasi absensi, logbook harian, dan pengajuan izin untuk anak magang di perusahaan SmartJaya.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
